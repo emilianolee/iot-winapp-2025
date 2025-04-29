@@ -211,6 +211,7 @@ IoT 개발자 C#/WinApp 리포지토리 2025
         - FixedSingle : 검은색 테두리
         - Fixed3D : 입체감있는 테두리
     - Maxlength : 최대 몇자까지 적을 수 있는지
+    - PasswordChar : 들어가는 텍스트를 암호처럼 숨길 때 사용. 보통 특수문자 '●' 를 사용 
     - Multiline : 여러줄 사용여부. true가 되어야 높이 조절 가능
     - PlaceholderText : 입력 전 입력내용 표시
     - ReadOnlt : 입력 가능 여부, True는 입력 불가
@@ -806,10 +807,10 @@ IoT 개발자 C#/WinApp 리포지토리 2025
         - 모바일 UWP 등도 동일하게 개발 가능
 
 - WPF 컴포넌트(실무에서 쓰이는 UI 컴포넌트, 윈앱도 존재) - Third Party
-    - (상용)텔레릭 - https://www.telerik.com/
-    - (상용)데브익스프레스 - https://www.devexpress.com/
-    - (상용)인프라지틱스 - https://www.infragistics.com/
-    - **(무료)마하앱** - https://mahapps.com/
+    - 참조 - https://github.com/Carlos487/awesome-wpf
+    - **Mahapps.Metro** - https://mahapps.com/
+    - **WPF UI** - https://github.com/lepoco/wpfui
+    - Material Design in XAML Toolkit - http://materialdesigninxaml.net/
 
 ### WPF 개발벙법 및 컨트롤 1
 - **WPF 애플리케이션** 선택 - [소스](./day07/Day07Study/WpfStudyApp01/MainWindow.xaml.cs)
@@ -915,21 +916,77 @@ IoT 개발자 C#/WinApp 리포지토리 2025
         - DB연결객체 : MySqlConnection
         - 명령실행객체 : MySqlCommand(쿼리문 실행)
         - 실행결과리더객체 : MySqlDataReader(쿼리결과 데이터)
-        - 트랜잭션객체 : 옵션. 트랜잭션 처리시 필요
+        - 트랜잭션객체 : 옵션. 트랜잭션(INSERT, UPDATE, DELETE 쿼리) 처리시 필요
 
     <img src="./image/cs016.png" width=600>
 
 ## 8일차
 
 ### WPF 개발벙법 및 컨트롤 2
-- 데이터베이스 데이터 바인딩
+- 데이터베이스 데이터 바인딩 - [소스](./day08/Day08Study/WpfStudyApp01/MainWindow.xaml.cs)
     - Xaml Binding 방식
+    - 실행결과 위와 동일
 
-- 네비게이션
-    - 화면 전환
+- 네비게이션 - [소스](./day08/Day08Study/WpfStudyApp02/MainWindow.xaml)
+    - 화면 페이지 전환
+    - 메뉴 클릭으로 화면전환
+    - Window, Page 컨트롤
+        - Window : Main
+        - Page : Sub
+    - NavigationService 사용
+    - NavigationUIVisibilty 속성
 
-- 컨트롤 디자인, 리소스
-    - 
+- 비트뱁 디자인, 벡터 디자인 - [소스](./day08/Day08Study/WpfStudyApp03/MainWindow.xaml)
+    - 이미지는 속성 > 빌드 작업 > 리소스 선택
+    - 출력 디렉토리로 복사 > 복사 안 함 선택    
+    - WPF Rectangle, Ellipse, Path 등은 전부 벡터 이미지
+
+- 컨트롤 디자인,  리소스 - [소스](./day08/Day08Study/WpfStudyApp04/MainWindow.xaml)
+    - WPF는 컨트롤에 디자인도 마음대로 변경 가능
+    - 리소스 : 컨트롤의 공유화
+        - App.xaml Application.Resources에 필요한 컨트롤 디자인을 정의
+        - 각각의 Window, Page.xaml에 사용
+        - Application.Resources에 선언한 리소스 > StaticResource
+
+    - ResourceDictionary - [소스](./day08/Day08Study/WpfStudyApp04/App.xaml)
+        - App.xaml 리소스를 계속 추가하면 유지보수가 어려워짐. 대안으로 리소스 사전 생성
+    - 참조 깃허브 : https://github.com/StanislawSwierc/WpfThemesCollection
+
+    <img src="./image/cs019.png" width=600>
+
+
+### MahApps.Metro 프레임워크
+- 공식사이트 : https://mahapps.com/
+    - 최소한 노력으로 Metro UI/Modern UI를 적용시킬 수 있는 프레임워크
+    - Metro UI, Modern UI - MS에서 시작한 디자인 스타일
+    - 깔끔하고 입체감을 최소화 시킴
+
+- 사용법 - [소스](./day08/Day08Study/WpfStudyApp05/MainWindow.xaml)
+    1. NuGet 패키지 관리 >
+        - MahApps.Metro 설치
+        - MahApps.Metro.IconPacks 설치
+    2. https://github.com/MahApps/MahApps.Metro/releases
+        - MahApps.Metro.Demo-v2.4.10-rc0001.zip 다운로드
+    3. https://github.com/MahApps/IconPacks.Browser/releases
+        - IconPacks.Browser-net8-v2.0.0.zip 다운로드
+    4. App.xaml에 필요한 리소스 코드 복붙
+    5. MainWindow.xaml.cs
+        - Window -> MetroWindow 변경
+    6. MainWindow.xaml
+        - Window -> mah.MetroWindow로 변경
+    
+    7. 실행결과
+
+    <img src="./image/cs020.png" width=600>
+
+    8. Theme - Light, Dark 2개
+    9. Accent - Amber ~ Yellow 총 23개 
+
+- 연습예제
+    - MahApps.Metro.Demo를 확인하면서 컨트롤 추가
+    - MahApps.Metro.Github 소스를 확인 필요
+    
+    <img src="./image/cs021.png" width=600>
 
 ## 9일차
 
