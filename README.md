@@ -1075,3 +1075,21 @@ IoT 개발자 C#/WinApp 리포지토리 2025
 
 
 ## 10일차
+
+### 개인 포트폴리오 - [소스](./day06/Day06Study/WinControlsAppDoMyself/FrmMain.cs)
+- 주요 기능
+    1. 곡 선택(추가) 및 제거
+        - BtnSelectSongs 버튼을 클릭하여 파일 탐색기를 통해 MP3, WAV 파일 추가 가능
+        - 선택된 곡은 ListBoxSongs에 추가(중복된 곡은 추가 안되게 설정함)
+        - 선택된 곡을 BtnClearSongs 버튼을 클릭하여 삭제 가능
+        - BtnClearAllSongs 버튼을 클릭하여 모든 곡 삭제 가능. 또한 재생 중인 곡도 함께 정지/삭제됨
+    2. 곡 재생/일시 정지 및 정지
+        - ListBoxSongs에서 선택된 곡을 클릭하면 곡 재생됨
+        - PbxPlayPause 아이콘 클릭하면 재생/일시정지됨. 재생 시 playImage, 일시정지 시 pauseImage로 아이콘 변경
+        - PbxStop 아이콘 클릭 시 현재 재생 중인 곡 정지 & PbxPlayPause 아이콘이 playImage로 변경
+    3. 진행 상태 표시 및 트랙바 조정
+        - 타이머가 1초마다 timer1_Tick 메서드를 호출하여 현재/전체 재생 시간 표시
+        - TrbProgress 트랙바는 현재 곡의 재생 위치를 나타내며, 사용자가 트랙바 조정 시 해당위치로 곡이 이동
+
+<img src="./image/cs024.png" width=600>
+

@@ -30,66 +30,32 @@
         {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
-            TopPanel = new Panel();
-            PicX = new PictureBox();
-            LblLoge = new Label();
             ListBoxSongs = new ListBox();
             BtnSelectSongs = new Button();
             WindowsMediaApp = new AxWMPLib.AxWindowsMediaPlayer();
             LblDeveloper = new Label();
             BtnClearSongs = new Button();
             BtnClearAllSongs = new Button();
-            LblTitle = new Label();
             LblCurrTime = new Label();
             LblTotalTime = new Label();
             TrbProgress = new TrackBar();
             timer1 = new System.Windows.Forms.Timer(components);
-            TopPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)PicX).BeginInit();
+            PbxStop = new PictureBox();
+            PbxPlayPause = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)WindowsMediaApp).BeginInit();
             ((System.ComponentModel.ISupportInitialize)TrbProgress).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)PbxStop).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)PbxPlayPause).BeginInit();
             SuspendLayout();
-            // 
-            // TopPanel
-            // 
-            TopPanel.BackColor = Color.PaleTurquoise;
-            TopPanel.Controls.Add(PicX);
-            TopPanel.Controls.Add(LblLoge);
-            TopPanel.Dock = DockStyle.Top;
-            TopPanel.Location = new Point(0, 0);
-            TopPanel.Name = "TopPanel";
-            TopPanel.Size = new Size(527, 38);
-            TopPanel.TabIndex = 0;
-            // 
-            // PicX
-            // 
-            PicX.Image = (Image)resources.GetObject("PicX.Image");
-            PicX.Location = new Point(489, 0);
-            PicX.Name = "PicX";
-            PicX.Size = new Size(36, 35);
-            PicX.SizeMode = PictureBoxSizeMode.Zoom;
-            PicX.TabIndex = 1;
-            PicX.TabStop = false;
-            PicX.Click += PicX_Click;
-            // 
-            // LblLoge
-            // 
-            LblLoge.AutoSize = true;
-            LblLoge.Font = new Font("Broadway", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LblLoge.Location = new Point(3, 9);
-            LblLoge.Name = "LblLoge";
-            LblLoge.Size = new Size(128, 15);
-            LblLoge.TabIndex = 0;
-            LblLoge.Text = "Music Player App";
             // 
             // ListBoxSongs
             // 
             ListBoxSongs.Font = new Font("맑은 고딕", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 129);
             ListBoxSongs.FormattingEnabled = true;
             ListBoxSongs.ItemHeight = 17;
-            ListBoxSongs.Location = new Point(12, 44);
+            ListBoxSongs.Location = new Point(12, 12);
             ListBoxSongs.Name = "ListBoxSongs";
-            ListBoxSongs.Size = new Size(300, 191);
+            ListBoxSongs.Size = new Size(242, 106);
             ListBoxSongs.TabIndex = 1;
             ListBoxSongs.SelectedIndexChanged += ListBoxSongs_SelectedIndexChanged;
             // 
@@ -99,7 +65,7 @@
             BtnSelectSongs.FlatStyle = FlatStyle.Flat;
             BtnSelectSongs.Font = new Font("Maiandra GD", 12.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             BtnSelectSongs.ForeColor = Color.White;
-            BtnSelectSongs.Location = new Point(332, 44);
+            BtnSelectSongs.Location = new Point(260, 12);
             BtnSelectSongs.Name = "BtnSelectSongs";
             BtnSelectSongs.Size = new Size(120, 30);
             BtnSelectSongs.TabIndex = 2;
@@ -121,7 +87,7 @@
             // 
             LblDeveloper.AutoSize = true;
             LblDeveloper.ForeColor = SystemColors.ControlDarkDark;
-            LblDeveloper.Location = new Point(377, 315);
+            LblDeveloper.Location = new Point(3, 202);
             LblDeveloper.Name = "LblDeveloper";
             LblDeveloper.Size = new Size(138, 15);
             LblDeveloper.TabIndex = 4;
@@ -133,7 +99,7 @@
             BtnClearSongs.FlatStyle = FlatStyle.Flat;
             BtnClearSongs.Font = new Font("Maiandra GD", 12.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             BtnClearSongs.ForeColor = Color.White;
-            BtnClearSongs.Location = new Point(332, 84);
+            BtnClearSongs.Location = new Point(260, 48);
             BtnClearSongs.Name = "BtnClearSongs";
             BtnClearSongs.Size = new Size(120, 30);
             BtnClearSongs.TabIndex = 2;
@@ -147,7 +113,7 @@
             BtnClearAllSongs.FlatStyle = FlatStyle.Flat;
             BtnClearAllSongs.Font = new Font("Maiandra GD", 12.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             BtnClearAllSongs.ForeColor = Color.White;
-            BtnClearAllSongs.Location = new Point(332, 124);
+            BtnClearAllSongs.Location = new Point(260, 84);
             BtnClearAllSongs.Name = "BtnClearAllSongs";
             BtnClearAllSongs.Size = new Size(120, 30);
             BtnClearAllSongs.TabIndex = 2;
@@ -155,28 +121,19 @@
             BtnClearAllSongs.UseVisualStyleBackColor = false;
             BtnClearAllSongs.Click += BtnClearAllSongs_Click;
             // 
-            // LblTitle
-            // 
-            LblTitle.AutoSize = true;
-            LblTitle.Location = new Point(161, 312);
-            LblTitle.Name = "LblTitle";
-            LblTitle.Size = new Size(47, 15);
-            LblTitle.TabIndex = 5;
-            LblTitle.Text = "곡 제목";
-            // 
             // LblCurrTime
             // 
-            LblCurrTime.AutoSize = true;
-            LblCurrTime.Location = new Point(12, 264);
+            LblCurrTime.Location = new Point(12, 128);
             LblCurrTime.Name = "LblCurrTime";
             LblCurrTime.Size = new Size(87, 15);
             LblCurrTime.TabIndex = 6;
             LblCurrTime.Text = "현재 재생 시간";
+            LblCurrTime.TextAlign = ContentAlignment.MiddleRight;
             // 
             // LblTotalTime
             // 
             LblTotalTime.AutoSize = true;
-            LblTotalTime.Location = new Point(428, 264);
+            LblTotalTime.Location = new Point(293, 128);
             LblTotalTime.Name = "LblTotalTime";
             LblTotalTime.Size = new Size(87, 15);
             LblTotalTime.TabIndex = 7;
@@ -185,62 +142,84 @@
             // TrbProgress
             // 
             TrbProgress.Cursor = Cursors.Hand;
-            TrbProgress.Location = new Point(98, 264);
+            TrbProgress.Location = new Point(98, 128);
             TrbProgress.Maximum = 100;
             TrbProgress.Name = "TrbProgress";
-            TrbProgress.Size = new Size(328, 45);
+            TrbProgress.Size = new Size(189, 45);
             TrbProgress.TabIndex = 8;
             TrbProgress.TickFrequency = 0;
             TrbProgress.TickStyle = TickStyle.None;
+            TrbProgress.ValueChanged += TrbProgress_ValueChanged;
             // 
             // timer1
             // 
             timer1.Tick += timer1_Tick;
             // 
+            // PbxStop
+            // 
+            PbxStop.Image = Properties.Resources.stop;
+            PbxStop.Location = new Point(203, 152);
+            PbxStop.Name = "PbxStop";
+            PbxStop.Size = new Size(60, 40);
+            PbxStop.SizeMode = PictureBoxSizeMode.Zoom;
+            PbxStop.TabIndex = 11;
+            PbxStop.TabStop = false;
+            PbxStop.Click += PbxStop_Click;
+            // 
+            // PbxPlayPause
+            // 
+            PbxPlayPause.Image = Properties.Resources.play;
+            PbxPlayPause.Location = new Point(137, 152);
+            PbxPlayPause.Name = "PbxPlayPause";
+            PbxPlayPause.Size = new Size(60, 40);
+            PbxPlayPause.SizeMode = PictureBoxSizeMode.Zoom;
+            PbxPlayPause.TabIndex = 12;
+            PbxPlayPause.TabStop = false;
+            PbxPlayPause.Click += PbxPlayPause_Click;
+            // 
             // FrmMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(527, 339);
+            AutoSize = true;
+            BackColor = SystemColors.Control;
+            ClientSize = new Size(392, 225);
+            Controls.Add(PbxPlayPause);
+            Controls.Add(PbxStop);
+            Controls.Add(LblDeveloper);
             Controls.Add(TrbProgress);
             Controls.Add(LblTotalTime);
             Controls.Add(LblCurrTime);
-            Controls.Add(LblTitle);
-            Controls.Add(LblDeveloper);
             Controls.Add(WindowsMediaApp);
             Controls.Add(BtnClearSongs);
             Controls.Add(BtnClearAllSongs);
             Controls.Add(BtnSelectSongs);
             Controls.Add(ListBoxSongs);
-            Controls.Add(TopPanel);
-            FormBorderStyle = FormBorderStyle.None;
+            FormBorderStyle = FormBorderStyle.Fixed3D;
+            MaximizeBox = false;
             Name = "FrmMain";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "음악 재생 앱";
-            TopPanel.ResumeLayout(false);
-            TopPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)PicX).EndInit();
             ((System.ComponentModel.ISupportInitialize)WindowsMediaApp).EndInit();
             ((System.ComponentModel.ISupportInitialize)TrbProgress).EndInit();
+            ((System.ComponentModel.ISupportInitialize)PbxStop).EndInit();
+            ((System.ComponentModel.ISupportInitialize)PbxPlayPause).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private Panel TopPanel;
-        private Label LblLoge;
-        private PictureBox PicX;
         private ListBox ListBoxSongs;
         private Button BtnSelectSongs;
         private AxWMPLib.AxWindowsMediaPlayer WindowsMediaApp;
         private Label LblDeveloper;
         private Button BtnClearSongs;
         private Button BtnClearAllSongs;
-        private Label LblTitle;
         private Label LblCurrTime;
         private Label LblTotalTime;
         private TrackBar TrbProgress;
         private System.Windows.Forms.Timer timer1;
+        private PictureBox PbxStop;
+        private PictureBox PbxPlayPause;
     }
 }

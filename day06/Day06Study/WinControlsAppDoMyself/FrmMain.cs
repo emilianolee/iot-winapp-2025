@@ -4,14 +4,20 @@ namespace WinControlsAppDoMyself
 {
     public partial class FrmMain : Form
     {
+        private bool isPlaying = false;     // 현재 재생 상태
+        private Image playImage = Properties.Resources.play;
+        private Image pauseImage = Properties.Resources.pause;
         public FrmMain()
         {
             InitializeComponent();
+
 
             WindowsMediaApp.Size = new Size(1, 1);
 
             timer1.Interval = 1000;
             timer1.Start();
+
+            PbxPlayPause.Image = playImage;
         }
 
         List<string> paths = new List<string>();
@@ -60,13 +66,6 @@ namespace WinControlsAppDoMyself
             }
         }
 
-
-        private void PicX_Click(object sender, EventArgs e)
-        {
-            // 앱 종료
-            this.Close();
-        }
-
         private void ListBoxSongs_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
@@ -87,6 +86,10 @@ namespace WinControlsAppDoMyself
 
                     // 선택된 곡 재생
                     WindowsMediaApp.Ctlcontrols.play();
+
+                    // 재생 상태로 표시
+                    isPlaying = true;
+                    PbxPlayPause.Image = pauseImage;
                 }
             }
             catch (Exception ex)
@@ -102,6 +105,7 @@ namespace WinControlsAppDoMyself
 
             if (selectedIndex >= 0)
             {
+                bool isCurrentSong = (WindowsMediaApp.URL == paths[selectedIndex]);
                 // 리스트에서 삭제
                 ListBoxSongs.Items.RemoveAt(selectedIndex);
 
@@ -112,6 +116,19 @@ namespace WinControlsAppDoMyself
                 tempPaths.RemoveAt(selectedIndex);
                 files = tempFiles;
                 paths = tempPaths;
+
+                if (isCurrentSong)
+                {
+                    // 재생 정보 초기화
+                    WindowsMediaApp.Ctlcontrols.stop();
+                    WindowsMediaApp.URL = "";   // URL까지 초기화해줌
+
+                    isPlaying = false;
+                    PbxPlayPause.Image = playImage;
+                    LblCurrTime.Text = "현재 재생 시간";
+                    LblTotalTime.Text = "전체 재생 시간";
+                    TrbProgress.Value = 0;
+                }
             }
             else
             {
@@ -132,7 +149,15 @@ namespace WinControlsAppDoMyself
                     files.Clear();
                     paths.Clear();
 
+                    // 재생 정보 초기화
                     WindowsMediaApp.Ctlcontrols.stop();
+                    WindowsMediaApp.URL = "";   // URL까지 초기화해줌
+
+                    isPlaying = false;
+                    PbxPlayPause.Image = playImage;
+                    LblCurrTime.Text = "현재 재생 시간";
+                    LblTotalTime.Text = "전체 재생 시간";
+                    TrbProgress.Value = 0;
                 }
             }
             else
@@ -143,7 +168,13 @@ namespace WinControlsAppDoMyself
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (WindowsMediaApp.currentMedia != null)
+            if (string.IsNullOrEmpty(WindowsMediaApp.URL) || WindowsMediaApp.playState == WMPLib.WMPPlayState.wmppsStopped)
+            {
+                LblCurrTime.Text = "현재 재생 시간";
+                LblTotalTime.Text = "전체 재생 시간";
+                TrbProgress.Value = 0;
+            }
+            else if (WindowsMediaApp.currentMedia != null) 
             {
                 LblCurrTime.Text = WindowsMediaApp.Ctlcontrols.currentPositionString;
                 LblTotalTime.Text = WindowsMediaApp.currentMedia.durationString;
@@ -156,6 +187,77 @@ namespace WinControlsAppDoMyself
                     int percentage = (int)((current / total) * 100);
                     TrbProgress.Value = Math.Min(percentage, 100);
                 }
+            }
+        }
+
+        private void TrbProgress_ValueChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (WindowsMediaApp.currentMedia != null)
+                {
+                    double total = WindowsMediaApp.currentMedia.duration;       // 곡 전체 길이
+                    double newPosition = (TrbProgress.Value / 100.0) * total;
+
+                    WindowsMediaApp.Ctlcontrols.currentPosition = newPosition;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"트랙바 이동 오류 : {ex.Message}", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void PbxPlayPause_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(WindowsMediaApp.URL))
+                {
+                    MessageBox.Show("먼저 곡을 선택하세요!", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                else if (isPlaying)
+                {
+                    // 현재 재생 중 -> 일시정지
+                    WindowsMediaApp.Ctlcontrols.pause();
+                    isPlaying = false;
+                    PbxPlayPause.Image = playImage;
+                }
+
+                else
+                {
+                    // 현재 일시정지 -> 재생 중
+                    WindowsMediaApp.Ctlcontrols.play();
+                    isPlaying = true;
+                    PbxPlayPause.Image = pauseImage;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"재생/일시정지 오류 : {ex.Message}");
+            }
+        }
+
+        private void PbxStop_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                WindowsMediaApp.Ctlcontrols.stop();
+                isPlaying = false;
+                PbxPlayPause.Image = playImage;
+
+                if (WindowsMediaApp.currentMedia !=  null)
+                {
+                    LblCurrTime.Text = "00:00";
+                    LblTotalTime.Text = WindowsMediaApp.currentMedia.durationString;
+                    TrbProgress.Value = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"정지 오류 : {ex.Message}");
             }
         }
     }
