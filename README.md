@@ -1077,9 +1077,6 @@ IoT 개발자 C#/WinApp 리포지토리 2025
 ## 10일차
 
 ### 개인 포트폴리오 - [소스](./day06/Day06Study/WinControlsAppDoMyself/FrmMain.cs)
-
-<img src="./image/cs024.png" width=600>
-
 - 주요 기능
     1. 곡 선택(추가) 및 제거
         - BtnSelectSongs 버튼을 클릭하여 파일 탐색기를 통해 MP3, WAV 파일 추가 가능
