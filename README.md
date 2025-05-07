@@ -1077,6 +1077,9 @@ IoT 개발자 C#/WinApp 리포지토리 2025
 ## 10일차
 
 ### 개인 포트폴리오 - [소스](./day06/Day06Study/WinControlsAppDoMyself/FrmMain.cs)
+
+<img src="./image/cs024.png" width=600>
+
 - 주요 기능
     1. 곡 선택(추가) 및 제거
         - BtnSelectSongs 버튼을 클릭하여 파일 탐색기를 통해 MP3, WAV 파일 추가 가능
@@ -1091,5 +1094,4 @@ IoT 개발자 C#/WinApp 리포지토리 2025
         - 타이머가 1초마다 timer1_Tick 메서드를 호출하여 현재/전체 재생 시간 표시
         - TrbProgress 트랙바는 현재 곡의 재생 위치를 나타내며, 사용자가 트랙바 조정 시 해당위치로 곡이 이동
 
-<img src="./image/cs024.png" width=600>
-
+https://github.com/user-attachments/assets/22db212b-8a8f-40c5-9849-cdbdfd7e333b
